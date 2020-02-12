@@ -8,12 +8,17 @@
 namespace SnakeGame {
 
 /**
- * This structure represents a section of the snake (2px x 2px)
+ * This structure represents a section of the snake
  * Its (x,y) position corresponds to the top left pixel
  */
 struct Section: Drawable {
-	Section(int x, int y);
+	static const unsigned int S_SECTION_WIDTH = 5;
+
+	int m_speed;
+
+	Section(int x, int y, int speed);
 	void draw(Screen & screen);
+	void move(int direction);
 };
 
 } // namespace SnakeGame

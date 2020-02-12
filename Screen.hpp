@@ -41,12 +41,7 @@ public:
 	 * Updates the Screen's elements according to the information in the buffer
 	 */
 	void update();
-
-	/**
-	 * Applies a box blur to the previous state of the Screen
-	 */
-	void boxBlur();
-
+	
 	/**
 	 * Sets a pixel in the buffer with the specified (x,y) position, and colors
 	 * @param x The x position

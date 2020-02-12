@@ -5,20 +5,26 @@
 #ifndef SNAKE_HPP
 #define SNAKE_HPP
 
+typedef const unsigned int cint;
+
 namespace SnakeGame {
 
 /**
  * This structure represents the snake that the player controls
  */
 struct Snake {
-	int speedX;
-	int speedY;
+	static const Uint8 S_SNK_RED = 0x01;
+	static const Uint8 S_SNK_GREEN = 0xFF;
+	static const Uint8 S_SNK_BLUE = 0x08;
+	cint S_N_SECTS = 20;
+
+	int m_speed;
 
 	std::vector<Section> sections;
 
 	Snake();
-	~Snake();
 	void draw(Screen & screen);
+	void move();
 };
 
 } // namespace SnakeGame

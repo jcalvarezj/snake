@@ -16,6 +16,7 @@ void drawSnake(const Snake & snake);
 
 int main(int argc, char ** argv) {	
 	Screen screen;
+	Snake snake;
 
 	if (!screen.init()) {
 		SDL_Log("Error initializing screen");
@@ -25,15 +26,11 @@ int main(int argc, char ** argv) {
 	bool quit = false;
 
 	while (!quit) {
-		Uint8 red = 0xFF;
-		Uint8 green = 0xCC;
-		Uint8 blue = 0x00;
+		screen.clear();
 
-		for (int i = 0; i < 50; i++)
-		{
-			screen.setPixel(i, 500, red, green, blue);
-		}
-		
+		snake.move();
+		snake.draw(screen);
+
 		screen.update();
 
 		if(!screen.processEvents())

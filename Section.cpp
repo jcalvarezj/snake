@@ -5,16 +5,20 @@
  */
 #include "Screen.hpp"
 #include "Section.hpp"
+#include "Snake.hpp"
 
 namespace SnakeGame {
 
-Section::Section(int x, int y): Drawable(x, y) {}
+Section::Section(int x, int y, int speed): Drawable(x, y), m_speed(speed) {}
 
 void Section::draw(Screen & screen) {
-	screen.setPixel(m_x, m_y, 0xFF, 0x00, 0x88);
-	screen.setPixel(m_x + 1, m_y, 0xFF, 0x00, 0x88);
-	screen.setPixel(m_x, m_y + 1, 0xFF, 0x00, 0x88);
-	screen.setPixel(m_x + 1, m_y + 1, 0xFF, 0x00, 0x88);
+	for (int i = 0; i < S_SECTION_WIDTH; i++)
+		for (int j = 0; j < S_SECTION_WIDTH; j++)
+			screen.setPixel(m_x + i, m_y + j, Snake::S_SNK_RED, Snake::S_SNK_GREEN, Snake::S_SNK_BLUE);
+}
+
+void Section::move(int direction) {
+	m_x += S_SECTION_WIDTH;
 }
 
 } // namespace SnakeGame
