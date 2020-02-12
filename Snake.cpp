@@ -17,7 +17,7 @@ cint Snake::S_INITIAL_LIVES = 3;
 
 Snake::Snake(): m_speed(1), m_lives(Snake::S_INITIAL_LIVES) {
 	for (int i = 0; i < S_N_SECTS; i++)
-		m_sections.push_back(Section(Screen::S_WIDTH/2 - Section::S_SECTION_WIDTH*i, 0, m_speed));
+		m_sections.push_back(Section(Screen::S_WIDTH/2 - Section::S_SECTION_WIDTH*i, 0, m_speed, Section::Direction::RIGHT));
 }
 
 void Snake::draw(Screen & screen) {
@@ -25,12 +25,19 @@ void Snake::draw(Screen & screen) {
 		m_sections[i].draw(screen);
 }
 
-bool Snake::move() {
-	for (int i = 0; i < m_sections.size(); i++) {
-		m_sections[i].move(1);
-	}
+void Snake::updateDirection(int direction) {
+	m_sections[0].m_currentDirection = direction;
+}
 
-	if (m_sections[0].m_x + Section::S_SECTION_WIDTH >= Screen::S_WIDTH || m_sections[0].m_y + Section::S_SECTION_WIDTH >= Screen::S_HEIGHT){
+bool Snake::move() {
+	m_sections[0].move(m_sections[0].m_currentDirection);
+	for (int i = 1; i < m_sections.size(); i++)
+		m_sections[i].move(m_sections[i-1].m_currentDirection);
+
+	if (m_sections[0].m_x + Section::S_SECTION_WIDTH >= Screen::S_WIDTH ||
+			m_sections[0].m_x - Section::S_SECTION_WIDTH < 0 ||
+			m_sections[0].m_y + Section::S_SECTION_WIDTH >= Screen::S_HEIGHT ||
+			m_sections[0].m_y + Section::S_SECTION_WIDTH < 0) {
 		m_lives -= 1;
 		return false;
 	}

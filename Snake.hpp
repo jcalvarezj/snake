@@ -26,6 +26,7 @@ struct Snake {
 
 	Snake();
 	void draw(Screen & screen);
+	void updateDirection(int direction);
 	bool move();
 	void resetPosition();
 };

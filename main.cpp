@@ -11,9 +11,14 @@
 
 using namespace SnakeGame;
 
-void holdGame(int millis) {
+bool holdGame(Screen & screen, int millis) {
 	int startTime = SDL_GetTicks();
-	while (SDL_GetTicks() - startTime < millis);
+	bool quit = false;
+	while (SDL_GetTicks() - startTime < millis && !quit) {
+		if(!screen.processEvents())
+			quit = true;
+	}
+	return quit;
 }
 
 int main(int argc, char ** argv) {	
@@ -34,7 +39,7 @@ int main(int argc, char ** argv) {
 		screen.update();
 
 		if (starting) {
-			holdGame(2000);
+			quit = holdGame(screen, 1500);
 			starting = false;
 		}
 
@@ -51,7 +56,7 @@ int main(int argc, char ** argv) {
 			screen.drawGameOver();
 			screen.update();
 
-			holdGame(3000);
+			holdGame(screen, 3000);
 		}
 	}
 
@@ -59,4 +64,3 @@ int main(int argc, char ** argv) {
 
 	return 0;
 }
-
