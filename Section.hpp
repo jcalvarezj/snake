@@ -12,9 +12,11 @@ namespace SnakeGame {
  * Its (x,y) position corresponds to the top left pixel
  */
 struct Section: Drawable {
-	static const unsigned int S_SECTION_WIDTH = 5;
+	static const unsigned int S_SECTION_WIDTH;
 
 	int m_speed;
+	int m_currentDirection;
+	int m_previousDirection;
 
 	Section(int x, int y, int speed);
 	void draw(Screen & screen);

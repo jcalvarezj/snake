@@ -13,18 +13,21 @@ namespace SnakeGame {
  * This structure represents the snake that the player controls
  */
 struct Snake {
-	static const Uint8 S_SNK_RED = 0x01;
-	static const Uint8 S_SNK_GREEN = 0xFF;
-	static const Uint8 S_SNK_BLUE = 0x08;
-	cint S_N_SECTS = 20;
+	static const Uint8 S_SNK_RED;
+	static const Uint8 S_SNK_GREEN;
+	static const Uint8 S_SNK_BLUE;
+	static cint S_N_SECTS;
+	static cint S_INITIAL_LIVES;
 
 	int m_speed;
+	int m_lives;
 
-	std::vector<Section> sections;
+	std::vector<Section> m_sections;
 
 	Snake();
 	void draw(Screen & screen);
-	void move();
+	bool move();
+	void resetPosition();
 };
 
 } // namespace SnakeGame

@@ -61,6 +61,11 @@ public:
 	 * Closes the Screen and cleans memory from all its elements
 	 */
 	void close();
+
+	/**
+	 * Draw game over view on the screen
+	 */
+	void drawGameOver();
 };
 
 } // namespace SnakeGame

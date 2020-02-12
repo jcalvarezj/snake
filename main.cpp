@@ -1,6 +1,5 @@
 /*
- * Compile with g++ *.cpp -IC:\SDL\include -LC:\SDL\i686-w64-mingw32\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2
- *
+ * 
  * @author J. Alvarez
  */
 #include <iostream>
@@ -12,7 +11,10 @@
 
 using namespace SnakeGame;
 
-void drawSnake(const Snake & snake);
+void holdGame(int millis) {
+	int startTime = SDL_GetTicks();
+	while (SDL_GetTicks() - startTime < millis);
+}
 
 int main(int argc, char ** argv) {	
 	Screen screen;
@@ -24,20 +26,37 @@ int main(int argc, char ** argv) {
 	}
 
 	bool quit = false;
+	bool starting = true;
 
-	while (!quit) {
+	while (!quit && snake.m_lives > 0) {
 		screen.clear();
-
-		snake.move();
 		snake.draw(screen);
-
 		screen.update();
+
+		if (starting) {
+			holdGame(2000);
+			starting = false;
+		}
+
+		if (!snake.move()) {
+			snake.resetPosition();
+			starting = true;
+		}
 
 		if(!screen.processEvents())
 			quit = true;
+
+		if (snake.m_lives == 0) {
+			screen.clear();			
+			screen.drawGameOver();
+			screen.update();
+
+			holdGame(3000);
+		}
 	}
 
 	screen.close();
 
 	return 0;
 }
+

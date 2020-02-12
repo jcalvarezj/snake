@@ -9,6 +9,8 @@
 
 namespace SnakeGame {
 
+const unsigned int Section::S_SECTION_WIDTH = 5;
+
 Section::Section(int x, int y, int speed): Drawable(x, y), m_speed(speed) {}
 
 void Section::draw(Screen & screen) {

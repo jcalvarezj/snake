@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstring>
 
+typedef const unsigned int cint;
+
 namespace SnakeGame {
 
 Screen::Screen(): m_window(NULL), m_renderer(NULL), m_texture(NULL),
@@ -97,5 +99,25 @@ void Screen::close() {
 	SDL_DestroyWindow(m_window);
 	SDL_Quit();
 }
+
+void Screen::drawGameOver() {
+	cint paintCol = S_WIDTH/2;
+	cint paintRow = S_HEIGHT/2;
+
+	for (int i = 0; i < S_HEIGHT; i++)
+		m_mainBuffer[i * S_WIDTH + paintCol] = 0x0FFFF0FF;
+
+	for (int i = 0; i < S_WIDTH; i++)
+		m_mainBuffer[paintRow * S_WIDTH + i] = 0x0FFFF0FF;
+
+	for (int i = 0; i < S_HEIGHT/2 - 1; i++)
+		for (int j = 0; j < S_WIDTH/2 - 1; j++) {
+			m_mainBuffer[i * S_WIDTH + j] = 0xFFCC00FF;
+			m_mainBuffer[(i * S_WIDTH + j) + S_WIDTH/2 + 2] = 0x00CCF0FF;
+			m_mainBuffer[(i + S_HEIGHT/2 + 1) * S_WIDTH + j] = 0x0FCC0A00;
+			m_mainBuffer[(i + S_HEIGHT/2 + 1) * S_WIDTH + j + S_WIDTH/2 + 2] = 0xAD0C0A00;
+		}
+}
+
 
 } // namespace SnakeGame
