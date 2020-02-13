@@ -11,12 +11,15 @@ namespace SnakeGame {
 
 const unsigned int Section::S_SECTION_WIDTH = 5;
 
-Section::Section(int x, int y, double speed, int direction): Drawable(x, y), m_speed(speed), m_currentDirection(direction) {}
+Section::Section(double x, double y, double speed, int direction):
+	Drawable(x, y), m_speed(speed), m_currentDirection(direction),
+	m_previousDirection(direction) {}
 
 void Section::draw(Screen & screen) {
 	for (int i = 0; i < S_SECTION_WIDTH; i++)
 		for (int j = 0; j < S_SECTION_WIDTH; j++)
-			screen.setPixel(m_x + i, m_y + j, Snake::S_SNK_RED, Snake::S_SNK_GREEN, Snake::S_SNK_BLUE);
+			screen.setPixel((int) m_x + i, (int) m_y + j, Snake::S_SNK_RED,
+				Snake::S_SNK_GREEN, Snake::S_SNK_BLUE);
 }
 
 void Section::move(int direction) {
@@ -34,7 +37,6 @@ void Section::move(int direction) {
 			m_x += S_SECTION_WIDTH * m_speed;
 			break;
 	}
-	
 
 }
 

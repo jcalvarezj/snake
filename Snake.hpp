@@ -18,8 +18,9 @@ struct Snake {
 	static const Uint8 S_SNK_BLUE;
 	static cint S_N_SECTS;
 	static cint S_INITIAL_LIVES;
+	static const double S_INITIAL_SPEED;
 
-	int m_speed;
+	double m_speed;
 	int m_lives;
 
 	std::vector<Section> m_sections;

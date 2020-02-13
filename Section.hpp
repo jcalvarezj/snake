@@ -19,7 +19,7 @@ struct Section: Drawable {
 	int m_currentDirection;
 	int m_previousDirection;
 
-	Section(int x, int y, double speed, int direction);
+	Section(double x, double y, double speed, int direction);
 	void draw(Screen & screen);
 	void move(int direction);
 };

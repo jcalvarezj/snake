@@ -15,7 +15,7 @@ bool Screen::init() {
 		return false;
 	}
 
-	m_window = SDL_CreateWindow("Particle Simulation Program",
+	m_window = SDL_CreateWindow("Snake Game",
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, S_WIDTH, S_HEIGHT, 
 		SDL_WINDOW_SHOWN);
 
@@ -56,14 +56,36 @@ bool Screen::init() {
 	return true;
 }
 
-bool Screen::processEvents() {
+int Screen::processEvents() {
 	SDL_Event event;
 
-	while (SDL_PollEvent(&event))
-		if (event.type == SDL_QUIT)
-			return false;
+	int action = Action::CONTINUE;
 
-	return true;
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+			case SDL_QUIT:
+				action = Action::QUIT;
+				break;
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+					case SDLK_LEFT:
+						action = Action::MOVE_LEFT;
+						break;
+					case SDLK_RIGHT:
+						action = Action::MOVE_RIGHT;
+						break;
+					case SDLK_DOWN:
+						action = Action::MOVE_DOWN;
+						break;
+					case SDLK_UP:
+						action = Action::MOVE_UP;
+						break;
+				}
+				break;
+		}
+	}
+
+	return action;
 }
 
 void Screen::update() {

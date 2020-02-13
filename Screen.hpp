@@ -12,6 +12,7 @@ namespace SnakeGame {
  */
 class Screen {
 public:
+	enum Action { QUIT, CONTINUE, MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, PAUSE };
 	static cint S_WIDTH = 800;
 	static cint S_HEIGHT = 600;
 private:
@@ -33,9 +34,9 @@ public:
 
 	/**
 	 * Unstacks events from the event pool and processes them
-	 * @return boolean indicating whether the program should continue or not
+	 * @return int indicating the action according to the event
 	 */
-	bool processEvents();
+	int processEvents();
 
 	/**
 	 * Updates the Screen's elements according to the information in the buffer

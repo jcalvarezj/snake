@@ -11,10 +11,10 @@ namespace SnakeGame {
  */
 struct Drawable {
 	virtual void draw(Screen & screen) = 0;
-	int m_x;
-	int m_y;
+	double m_x;
+	double m_y;
 
-	Drawable(int x, int y): m_x(x), m_y(y) {}
+	Drawable(double x, double y): m_x(x), m_y(y) {}
 };
 
 } // namespace SnakeGame
