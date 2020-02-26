@@ -73,16 +73,16 @@ int main(int argc, char ** argv) {
 				pause = false;
 				break;
 			case Screen::Action::MOVE_UP:
-				snake.updateDirection(Section::Direction::UP);
+				snake.updateDirection(Snake::Direction::UP);
 				break;
 			case Screen::Action::MOVE_DOWN:
-				snake.updateDirection(Section::Direction::DOWN);
+				snake.updateDirection(Snake::Direction::DOWN);
 				break;
 			case Screen::Action::MOVE_LEFT:
-				snake.updateDirection(Section::Direction::LEFT);
+				snake.updateDirection(Snake::Direction::LEFT);
 				break;
 			case Screen::Action::MOVE_RIGHT:
-				snake.updateDirection(Section::Direction::RIGHT);
+				snake.updateDirection(Snake::Direction::RIGHT);
 				break;
 		}
 
@@ -90,11 +90,14 @@ int main(int argc, char ** argv) {
 			pauseGame(screen, pause);
 		}
 
-		if (!snake.move()) {
-			snake.resetPosition();
-			starting = true;
-		}
+		int elapsed = SDL_GetTicks();
 
+		if (elapsed % 4 == 0) {
+			if (!snake.move()) {
+				snake.reset();
+				starting = true;
+			}
+		}
 
 		if (snake.m_lives == 0) {
 			screen.clear();			

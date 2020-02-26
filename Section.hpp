@@ -13,15 +13,13 @@ namespace SnakeGame {
  */
 struct Section: Drawable {
 	static const unsigned int S_SECTION_WIDTH;
-	enum Direction { UP, DOWN, LEFT, RIGHT };
 
 	double m_speed;
-	int m_currentDirection;
-	int m_previousDirection;
 
-	Section(double x, double y, double speed, int direction);
+	Section(int x, int y, double speed);
 	void draw(Screen & screen);
 	void move(int direction);
+	int calculateDirection(Section & other);
 };
 
 } // namespace SnakeGame

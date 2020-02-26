@@ -11,9 +11,8 @@ namespace SnakeGame {
 
 const unsigned int Section::S_SECTION_WIDTH = 5;
 
-Section::Section(double x, double y, double speed, int direction):
-	Drawable(x, y), m_speed(speed), m_currentDirection(direction),
-	m_previousDirection(direction) {}
+Section::Section(int x, int y, double speed):
+	Drawable(x, y), m_speed(speed) {}
 
 void Section::draw(Screen & screen) {
 	for (int i = 0; i < S_SECTION_WIDTH; i++)
@@ -24,20 +23,34 @@ void Section::draw(Screen & screen) {
 
 void Section::move(int direction) {
 	switch (direction) {
-		case Section::Direction::UP:
-			m_y -= S_SECTION_WIDTH * m_speed;
+		case Snake::Direction::UP:
+			m_y -= S_SECTION_WIDTH;
 			break;
-		case Section::Direction::DOWN:
-			m_y += S_SECTION_WIDTH * m_speed;
+		case Snake::Direction::DOWN:
+			m_y += S_SECTION_WIDTH;
 			break;
-		case Section::Direction::LEFT:
-			m_x -= S_SECTION_WIDTH * m_speed;
+		case Snake::Direction::LEFT:
+			m_x -= S_SECTION_WIDTH;
 			break;
-		case Section::Direction::RIGHT:
-			m_x += S_SECTION_WIDTH * m_speed;
+		case Snake::Direction::RIGHT:
+			m_x += S_SECTION_WIDTH;
 			break;
 	}
+}
 
+int Section::calculateDirection(Section & other) {
+	if (other.m_x - m_x == 0) {
+		if(other.m_y - m_y > 0)
+			return Snake::Direction::UP;
+		else
+			return Snake::Direction::DOWN;
+	}
+	else {
+		if(other.m_x - m_x > 0)
+			return Snake::Direction::RIGHT;
+		else
+			return Snake::Direction::LEFT;
+	}
 }
 
 } // namespace SnakeGame

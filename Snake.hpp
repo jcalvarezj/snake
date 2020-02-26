@@ -18,10 +18,14 @@ struct Snake {
 	static const Uint8 S_SNK_BLUE;
 	static cint S_N_SECTS;
 	static cint S_INITIAL_LIVES;
+	static cint S_INITIAL_DIRECTION;
 	static const double S_INITIAL_SPEED;
+
+	enum Direction { UP, DOWN, LEFT, RIGHT };
 
 	double m_speed;
 	int m_lives;
+	int m_direction;
 
 	std::vector<Section> m_sections;
 
@@ -29,7 +33,10 @@ struct Snake {
 	void draw(Screen & screen);
 	void updateDirection(int direction);
 	bool move();
+	void reset();
+private:
 	void resetPosition();
+	void resetDirection();
 };
 
 } // namespace SnakeGame
