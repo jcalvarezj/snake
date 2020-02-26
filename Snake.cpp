@@ -31,11 +31,22 @@ void Snake::draw(Screen & screen) {
 }
 
 void Snake::updateDirection(int direction) {
-	m_direction = direction;	
+	if (
+			(m_direction == Snake::Direction::UP || m_direction ==
+			Snake::Direction::DOWN) && (direction == Snake::Direction::LEFT ||
+			direction == Snake::Direction::RIGHT)
+			||
+			(m_direction == Snake::Direction::LEFT || m_direction ==
+			Snake::Direction::RIGHT) && (direction == Snake::Direction::UP ||
+			direction == Snake::Direction::DOWN)
+		)
+		m_direction = direction;
+	else
+		SDL_Log("NOSEPUEDE");
 }
 
 bool Snake::move() {
-	for (int i = m_sections.size(); i > 0; i--)
+	for (int i = S_N_SECTS; i > 0; i--)
 		m_sections[i].move(m_sections[i].calculateDirection(m_sections[i-1]));
 
 	m_sections[0].move(m_direction);
