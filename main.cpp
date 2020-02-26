@@ -93,6 +93,7 @@ int main(int argc, char ** argv) {
 		int elapsed = SDL_GetTicks();
 
 		if (elapsed % 4 == 0) {
+			snake.toString();
 			if (!snake.move()) {
 				snake.reset();
 				starting = true;

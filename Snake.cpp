@@ -14,7 +14,7 @@ const Uint8 Snake::S_SNK_GREEN = 0xFF;
 const Uint8 Snake::S_SNK_BLUE = 0x08;
 const double Snake::S_INITIAL_SPEED = 0.05;
 cint Snake::S_INITIAL_DIRECTION = Snake::Direction::RIGHT;
-cint Snake::S_N_SECTS = 2;
+cint Snake::S_N_SECTS = 6;
 cint Snake::S_INITIAL_LIVES = 3;
 
 Snake::Snake(): m_speed(Snake::S_INITIAL_SPEED), m_lives(Snake::S_INITIAL_LIVES),
@@ -41,8 +41,6 @@ void Snake::updateDirection(int direction) {
 			direction == Snake::Direction::DOWN)
 		)
 		m_direction = direction;
-	else
-		SDL_Log("NOSEPUEDE");
 }
 
 bool Snake::move() {
@@ -76,6 +74,15 @@ void Snake::resetPosition() {
 
 void Snake::resetDirection() {
 	m_direction = S_INITIAL_DIRECTION;
+}
+
+void Snake::toString() {  // TODO Remove . For debugging purposes
+	SDL_Log("----------------------------------------");
+	SDL_Log("The snake is:");
+	for (auto section: m_sections) {
+		section.toString();
+	}
+	SDL_Log("----------------------------------------");
 }
 
 } // namespace SnakeGame

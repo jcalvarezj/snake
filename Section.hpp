@@ -20,6 +20,7 @@ struct Section: Drawable {
 	void draw(Screen & screen);
 	void move(int direction);
 	int calculateDirection(Section & other);
+	void toString();  // TODO Remove
 };
 
 } // namespace SnakeGame

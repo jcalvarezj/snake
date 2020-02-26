@@ -40,7 +40,7 @@ void Section::move(int direction) {
 
 int Section::calculateDirection(Section & other) {
 	if (other.m_x - m_x == 0) {
-		if(other.m_y - m_y > 0)
+		if(other.m_y - m_y < 0)
 			return Snake::Direction::UP;
 		else
 			return Snake::Direction::DOWN;
@@ -51,6 +51,10 @@ int Section::calculateDirection(Section & other) {
 		else
 			return Snake::Direction::LEFT;
 	}
+}
+
+void Section::toString() { // TODO Remove - Used for debugging
+	SDL_Log("<%d, %d>", m_x, m_y);
 }
 
 } // namespace SnakeGame

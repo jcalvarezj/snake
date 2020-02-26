@@ -34,6 +34,7 @@ struct Snake {
 	void updateDirection(int direction);
 	bool move();
 	void reset();
+	void toString();  // TODO Remove . For debugging purposes
 private:
 	void resetPosition();
 	void resetDirection();
