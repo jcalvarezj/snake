@@ -101,9 +101,9 @@ int main(int argc, char ** argv) {
 		int elapsed = SDL_GetTicks();
 
 		if (elapsed % 4 == 0) {
-			//snake.toString();
 			if (!snake.move()) {
 				snake.reset();
+				food = Food();
 				starting = true;
 			}
 			else {
@@ -111,6 +111,7 @@ int main(int argc, char ** argv) {
 					food = Food();
 					score += Food::S_VALUE;
 					SDL_Log("Score! Now you have %d points", score);
+					snake.addSection();
 				}
 			}
 		}
