@@ -21,7 +21,7 @@ Snake::Snake(): m_speed(Snake::S_INITIAL_SPEED), m_lives(Snake::S_INITIAL_LIVES)
 	m_direction(S_INITIAL_DIRECTION) {
 	for (int i = 0; i < S_N_SECTS; i++)
 		m_sections.push_back(
-			Section(Screen::S_WIDTH/2 - Section::S_SECTION_WIDTH*i, 0)
+			Section(Screen::S_WIDTH/2 - i*Section::S_SECTION_WIDTH, 3*Section::S_SECTION_WIDTH)
 		);
 }
 
@@ -72,7 +72,7 @@ void Snake::resetSections() {
 
 	for (int i = 0; i < S_N_SECTS; i++){
 		m_sections[i].m_x = Screen::S_WIDTH/2 - Section::S_SECTION_WIDTH*i;
-		m_sections[i].m_y = 0;
+		m_sections[i].m_y = 3*Section::S_SECTION_WIDTH;
 	}
 }
 

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "Snake.hpp"
 #include "Food.hpp"
+#include "Wall.hpp"
 #include "Screen.hpp"
 #include "SDL2/SDL.h"
 
@@ -43,12 +44,35 @@ int pauseGame(Screen & screen, bool & pause) {
 	return action;
 }
 
+std::vector<Wall> & createWalls() {
+	std::vector<Wall> walls;
+
+	const int N_HORIZONTAL = Screen::S_WIDTH / Wall::S_WALL_WIDTH;
+	const int N_VERTICAL = Screen::S_HEIGHT / Wall::S_WALL_WIDTH;
+
+	for (int i = 0; i < N_HORIZONTAL; i++) {
+		walls.push_back(Wall(i * Wall::S_WALL_WIDTH, 0));		
+		walls.push_back(Wall(i * Wall::S_WALL_WIDTH, Screen::S_HEIGHT - Wall::S_WALL_WIDTH));
+	}
+	/*for (int i = 1; i < N_VERTICAL - 1; i++) {
+		walls.push_back(Wall(0, i * Wall::S_WALL_WIDTH));
+		walls.push_back(Wall(Screen::S_WIDTH - Wall::S_WALL_WIDTH, i * Wall::S_WALL_WIDTH));
+	}*/
+}
+
+void drawWalls(std::vector<Wall> & walls, Screen & screen) {
+	for (auto wall: walls)
+		wall.draw(screen);
+}
+
 int main(int argc, char ** argv) {
 	srand(time(NULL));
 
 	Screen screen;
 	Snake snake;
 	Food food;
+	std::vector<Wall> walls = createWalls();
+
 	int score = 0;
 
 	if (!screen.init()) {
@@ -64,6 +88,7 @@ int main(int argc, char ** argv) {
 		screen.clear();
 		snake.draw(screen);
 		food.draw(screen);
+		drawWalls(walls, screen);
 		screen.update();
 
 		if (starting) {
