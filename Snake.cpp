@@ -14,14 +14,15 @@ const Uint8 Snake::S_SNK_GREEN = 0xFF;
 const Uint8 Snake::S_SNK_BLUE = 0x08;
 const double Snake::S_INITIAL_SPEED = 0.05;
 cint Snake::S_INITIAL_DIRECTION = Snake::Direction::RIGHT;
-cint Snake::S_N_SECTS = 6;
+cint Snake::S_N_SECTS = 8;
 cint Snake::S_INITIAL_LIVES = 3;
 
 Snake::Snake(): m_speed(Snake::S_INITIAL_SPEED), m_lives(Snake::S_INITIAL_LIVES),
 	m_direction(S_INITIAL_DIRECTION) {
 	for (int i = 0; i < S_N_SECTS; i++)
 		m_sections.push_back(
-			Section(Screen::S_WIDTH/2 - Section::S_SECTION_WIDTH*i, 0, m_speed)
+			Section(Screen::S_WIDTH/2 - Section::S_SECTION_WIDTH*i, 0)
+			//Section(Section::S_SECTION_WIDTH * S_N_SECTS + Section::S_SECTION_WIDTH - Section::S_SECTION_WIDTH*i, 0)
 		);
 }
 

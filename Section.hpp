@@ -14,9 +14,7 @@ namespace SnakeGame {
 struct Section: Drawable {
 	static const unsigned int S_SECTION_WIDTH;
 
-	double m_speed;
-
-	Section(int x, int y, double speed);
+	Section(int x, int y);
 	void draw(Screen & screen);
 	void move(int direction);
 	int calculateDirection(Section & other);

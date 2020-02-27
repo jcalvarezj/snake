@@ -5,7 +5,10 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <time.h>
+#include <stdlib.h>
 #include "Snake.hpp"
+#include "Food.hpp"
 #include "Screen.hpp"
 #include "SDL2/SDL.h"
 
@@ -39,9 +42,13 @@ int pauseGame(Screen & screen, bool & pause) {
 	return action;
 }
 
-int main(int argc, char ** argv) {	
+int main(int argc, char ** argv) {
+	srand(time(NULL));
+
 	Screen screen;
 	Snake snake;
+	Food food;
+	int score = 0;
 
 	if (!screen.init()) {
 		SDL_Log("Error initializing screen");
@@ -55,6 +62,7 @@ int main(int argc, char ** argv) {
 	while (!quit && snake.m_lives > 0) {
 		screen.clear();
 		snake.draw(screen);
+		food.draw(screen);
 		screen.update();
 
 		if (starting) {
@@ -93,7 +101,7 @@ int main(int argc, char ** argv) {
 		int elapsed = SDL_GetTicks();
 
 		if (elapsed % 4 == 0) {
-			snake.toString();
+			//snake.toString();
 			if (!snake.move()) {
 				snake.reset();
 				starting = true;
