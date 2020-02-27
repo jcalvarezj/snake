@@ -80,6 +80,9 @@ int Screen::processEvents() {
 					case SDLK_UP:
 						action = Action::MOVE_UP;
 						break;
+					case SDLK_RETURN:
+						action = Action::PAUSE;
+						break;
 				}
 				break;
 		}

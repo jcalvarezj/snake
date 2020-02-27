@@ -9,6 +9,8 @@ namespace SnakeGame {
 
 /**
  * This class represents an object that can collide with others
+ * The most basic collision is implemented: objects have same size, so if they
+ * are in the same position a collision is assumed
  */
 struct Collideable: Drawable {
 	Collideable(int x, int y);

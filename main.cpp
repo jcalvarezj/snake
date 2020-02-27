@@ -29,11 +29,12 @@ int pauseGame(Screen & screen, bool & pause) {
 	bool quit = false;
 	int action = Screen::Action::PAUSE;
 	while (!quit && pause) {
-		switch (screen.processEvents()) {
+		int action = screen.processEvents();
+		switch (action) {
 			case Screen::Action::QUIT:
 				quit = true;
 				break;
-			case Screen::Action::CONTINUE:
+			case Screen::Action::PAUSE:
 				pause = false;
 				break;
 		}
@@ -77,9 +78,6 @@ int main(int argc, char ** argv) {
 			case Screen::Action::PAUSE:
 				pause = true;
 				break;
-			case Screen::Action::CONTINUE:
-				pause = false;
-				break;
 			case Screen::Action::MOVE_UP:
 				snake.updateDirection(Snake::Direction::UP);
 				break;
@@ -94,9 +92,8 @@ int main(int argc, char ** argv) {
 				break;
 		}
 
-		if (pause) {
+		if (pause)
 			pauseGame(screen, pause);
-		}
 
 		int elapsed = SDL_GetTicks();
 
