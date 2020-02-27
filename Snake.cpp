@@ -49,15 +49,17 @@ bool Snake::move() {
 
 	m_sections[0].move(m_direction);
 
-	if (m_sections[0].m_x + Section::S_SECTION_WIDTH >= Screen::S_WIDTH ||
-			m_sections[0].m_x - Section::S_SECTION_WIDTH < 0 ||
-			m_sections[0].m_y + Section::S_SECTION_WIDTH >= Screen::S_HEIGHT ||
-			m_sections[0].m_y + Section::S_SECTION_WIDTH < 0) {
-		m_lives -= 1;
+	if (m_sections[0].m_x >= Screen::S_WIDTH ||	m_sections[0].m_x < 0 ||
+			m_sections[0].m_y >= Screen::S_HEIGHT || m_sections[0].m_y < 0) {
+		die();
 		return false;
 	}
 	else
 		return true;
+}
+
+void Snake::die() {
+	m_lives--;
 }
 
 void Snake::reset() {
@@ -83,7 +85,7 @@ bool Snake::collidesWith(Collideable & object) {
 }
 
 void Snake::addSection() {
-	int N = m_sections.size();
+	const int N = m_sections.size();
 	int basePlacement = m_sections[N-2].calculateDirection(m_sections[N-1]);
 
 	int x = 0;
@@ -109,13 +111,6 @@ void Snake::addSection() {
 	}
 
 	m_sections.push_back(Section(x, y));
-	/*N = m_sections.size();
-
-	SDL_Log("Added a new section at: %d, %d  because last section was at %d, %d  and the previous to that was %d, %d  and the calculated direction was %d", x, y, m_sections[N-2].m_x, m_sections[N-2].m_y,  m_sections[N-3].m_x, m_sections[N-3].m_y, basePlacement);
-	SDL_Log("Up: %d", Snake::Direction::UP);
-	SDL_Log("Down: %d", Snake::Direction::DOWN);
-	SDL_Log("Left: %d", Snake::Direction::LEFT);
-	SDL_Log("Right: %d", Snake::Direction::RIGHT);*/
 }
 
 void Snake::toString() {  // TODO Remove. For debugging purposes

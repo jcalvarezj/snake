@@ -33,12 +33,14 @@ struct Snake {
 	void draw(Screen & screen);
 	void updateDirection(int direction);
 	bool move();
+	void die();
 	void reset();
 	bool collidesWith(Collideable & object);
+	void addSection();
 	void toString();  // TODO Remove . For debugging purposes
 	
 private:
-	void resetPosition();
+	void resetSections();
 	void resetDirection();
 };
 
