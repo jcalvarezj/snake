@@ -1,4 +1,4 @@
-#include "Drawable.hpp"
+#include "Collideable.hpp"
 #include "Screen.hpp"
 #include "SDL2/SDL.h"
 
@@ -11,7 +11,7 @@ namespace SnakeGame {
  * This structure represents a food item
  * Its (x,y) position corresponds to the top left pixel
  */
-struct Food: Drawable {
+struct Food: Collideable {
 	static const Uint8 S_FOOD_RED;
 	static const Uint8 S_FOOD_GREEN;
 	static const Uint8 S_FOOD_BLUE;

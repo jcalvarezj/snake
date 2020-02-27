@@ -1,4 +1,4 @@
-#include "Drawable.hpp"
+#include "Collideable.hpp"
 #include "Screen.hpp"
 #include "SDL2/SDL.h"
 
@@ -11,7 +11,7 @@ namespace SnakeGame {
  * This structure represents a section of the snake
  * Its (x,y) position corresponds to the top left pixel
  */
-struct Section: Drawable {
+struct Section: Collideable {
 	static const unsigned int S_SECTION_WIDTH;
 
 	Section(int x, int y);

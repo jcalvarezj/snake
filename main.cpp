@@ -106,6 +106,13 @@ int main(int argc, char ** argv) {
 				snake.reset();
 				starting = true;
 			}
+			else {
+				if (snake.collidesWith(food)) {
+					food = Food();
+					score += Food::S_VALUE;
+					SDL_Log("Score! Now you have %d points", score);
+				}
+			}
 		}
 
 		if (snake.m_lives == 0) {

@@ -17,12 +17,9 @@ const unsigned int Food::S_FOOD_WIDTH = 20;
 
 const int Food::S_VALUE = 50;
 
-Food::Food(): Drawable(0, 0) {
+Food::Food(): Collideable(0, 0) {
 	m_x = (int) ((Screen::S_WIDTH / S_FOOD_WIDTH - 1.0) * (1.0 * rand() / RAND_MAX)) * S_FOOD_WIDTH;
 	m_y = (int) ((Screen::S_HEIGHT / S_FOOD_WIDTH - 1.0) * (1.0 * rand() / RAND_MAX)) * S_FOOD_WIDTH;
-
-	SDL_Log("x - y  %d - %d", m_x, m_y);
-	SDL_Log("Number %f", (Screen::S_WIDTH / S_FOOD_WIDTH - 1.0));
 }
 
 void Food::draw(Screen & screen) {

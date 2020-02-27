@@ -34,6 +34,7 @@ struct Snake {
 	void updateDirection(int direction);
 	bool move();
 	void reset();
+	bool collidesWith(Collideable & object);
 	void toString();  // TODO Remove . For debugging purposes
 	
 private:

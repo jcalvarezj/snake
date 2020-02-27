@@ -12,7 +12,7 @@ namespace SnakeGame {
 const unsigned int Section::S_SECTION_WIDTH = 20;
 
 Section::Section(int x, int y):
-	Drawable(x, y) {}
+	Collideable(x, y) {}
 
 void Section::draw(Screen & screen) {
 	for (int i = 0; i < S_SECTION_WIDTH; i++)

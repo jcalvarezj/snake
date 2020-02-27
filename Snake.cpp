@@ -22,7 +22,6 @@ Snake::Snake(): m_speed(Snake::S_INITIAL_SPEED), m_lives(Snake::S_INITIAL_LIVES)
 	for (int i = 0; i < S_N_SECTS; i++)
 		m_sections.push_back(
 			Section(Screen::S_WIDTH/2 - Section::S_SECTION_WIDTH*i, 0)
-			//Section(Section::S_SECTION_WIDTH * S_N_SECTS + Section::S_SECTION_WIDTH - Section::S_SECTION_WIDTH*i, 0)
 		);
 }
 
@@ -75,6 +74,10 @@ void Snake::resetPosition() {
 
 void Snake::resetDirection() {
 	m_direction = S_INITIAL_DIRECTION;
+}
+
+bool Snake::collidesWith(Collideable & object) {
+	return m_sections[0].collidesWith(object);
 }
 
 void Snake::toString() {  // TODO Remove . For debugging purposes
