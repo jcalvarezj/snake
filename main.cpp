@@ -44,20 +44,21 @@ int pauseGame(Screen & screen, bool & pause) {
 	return action;
 }
 
-std::vector<Wall> & createWalls() {
-	std::vector<Wall> walls;
-
+void createWalls(std::vector<Wall> & walls) {
 	const int N_HORIZONTAL = Screen::S_WIDTH / Wall::S_WALL_WIDTH;
-	const int N_VERTICAL = Screen::S_HEIGHT / Wall::S_WALL_WIDTH;
+	const int N_VERTICAL = Screen::S_HEIGHT / Wall::S_WALL_WIDTH - 2;
 
 	for (int i = 0; i < N_HORIZONTAL; i++) {
-		walls.push_back(Wall(i * Wall::S_WALL_WIDTH, 0));		
-		walls.push_back(Wall(i * Wall::S_WALL_WIDTH, Screen::S_HEIGHT - Wall::S_WALL_WIDTH));
+		walls.push_back(Wall(i * Wall::S_WALL_WIDTH, 0));
+		walls.push_back(
+			Wall(i * Wall::S_WALL_WIDTH, 
+				Screen::S_HEIGHT - 2 * Wall::S_WALL_WIDTH)
+		);
 	}
-	/*for (int i = 1; i < N_VERTICAL - 1; i++) {
+	for (int i = 1; i < N_VERTICAL - 1; i++) {
 		walls.push_back(Wall(0, i * Wall::S_WALL_WIDTH));
 		walls.push_back(Wall(Screen::S_WIDTH - Wall::S_WALL_WIDTH, i * Wall::S_WALL_WIDTH));
-	}*/
+	}
 }
 
 void drawWalls(std::vector<Wall> & walls, Screen & screen) {
@@ -71,7 +72,8 @@ int main(int argc, char ** argv) {
 	Screen screen;
 	Snake snake;
 	Food food;
-	std::vector<Wall> walls = createWalls();
+	std::vector<Wall> walls;
+	createWalls(walls);
 
 	int score = 0;
 
@@ -135,6 +137,22 @@ int main(int argc, char ** argv) {
 					SDL_Log("Score! Now you have %d points", score);
 					snake.addSection();
 				}
+
+				for (auto wall: walls)
+					if (snake.collidesWith(wall)) {
+						snake.die();
+						snake.reset();
+						food = Food();
+						starting = true;
+					}
+
+				for (int i = 1; i < snake.m_sections.size(); i++)
+					if (snake.collidesWith(snake.m_sections[i])) {
+						snake.die();
+						snake.reset();
+						food = Food();
+						starting = true;
+					}
 			}
 		}
 
