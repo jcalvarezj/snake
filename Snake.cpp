@@ -50,10 +50,8 @@ bool Snake::move() {
 	m_sections[0].move(m_direction);
 
 	if (m_sections[0].m_x >= Screen::S_WIDTH ||	m_sections[0].m_x < 0 ||
-			m_sections[0].m_y >= Screen::S_HEIGHT || m_sections[0].m_y < 0) {
-		die();
+			m_sections[0].m_y >= Screen::S_HEIGHT || m_sections[0].m_y < 0)		
 		return false;
-	}
 	else
 		return true;
 }

@@ -25,7 +25,7 @@ bool holdGame(Screen & screen, int millis) {
 	return quit;
 }
 
-int pauseGame(Screen & screen, bool & pause) {
+bool pauseGame(Screen & screen, bool & pause) {
 	int startTime = SDL_GetTicks();
 	bool quit = false;
 	int action = Screen::Action::PAUSE;
@@ -41,7 +41,14 @@ int pauseGame(Screen & screen, bool & pause) {
 		}
 
 	}
-	return action;
+	return quit;
+}
+
+void resetLevel(Snake & snake, Food & food, bool & starting) {
+	snake.die();
+	snake.reset();
+	food = Food();
+	starting = true;
 }
 
 void createWalls(std::vector<Wall> & walls) {
@@ -52,7 +59,7 @@ void createWalls(std::vector<Wall> & walls) {
 		walls.push_back(Wall(i * Wall::S_WALL_WIDTH, 0));
 		walls.push_back(
 			Wall(i * Wall::S_WALL_WIDTH, 
-				Screen::S_HEIGHT - 2 * Wall::S_WALL_WIDTH)
+				Screen::S_HEIGHT - 3 * Wall::S_WALL_WIDTH)
 		);
 	}
 	for (int i = 1; i < N_VERTICAL - 1; i++) {
@@ -120,16 +127,13 @@ int main(int argc, char ** argv) {
 		}
 
 		if (pause)
-			pauseGame(screen, pause);
+			quit = pauseGame(screen, pause);
 
 		int elapsed = SDL_GetTicks();
 
 		if (elapsed % 4 == 0) {
-			if (!snake.move()) {
-				snake.reset();
-				food = Food();
-				starting = true;
-			}
+			if (!snake.move())
+				resetLevel(snake, food, starting);
 			else {
 				if (snake.collidesWith(food)) {
 					food = Food();
@@ -139,20 +143,12 @@ int main(int argc, char ** argv) {
 				}
 
 				for (auto wall: walls)
-					if (snake.collidesWith(wall)) {
-						snake.die();
-						snake.reset();
-						food = Food();
-						starting = true;
-					}
+					if (snake.collidesWith(wall))
+						resetLevel(snake, food, starting);
 
 				for (int i = 1; i < snake.m_sections.size(); i++)
-					if (snake.collidesWith(snake.m_sections[i])) {
-						snake.die();
-						snake.reset();
-						food = Food();
-						starting = true;
-					}
+					if (snake.collidesWith(snake.m_sections[i]))
+						resetLevel(snake, food, starting);
 			}
 		}
 
