@@ -18,12 +18,12 @@ cint Snake::S_N_SECTS = 8;
 cint Snake::S_INITIAL_LIVES = 3;
 
 Snake::Snake(): m_speed(Snake::S_INITIAL_SPEED), m_lives(Snake::S_INITIAL_LIVES),
-	m_direction(S_INITIAL_DIRECTION) {
+	m_direction(S_INITIAL_DIRECTION), m_hasUpdated(false) {
 	Section * newSection = nullptr;
 	for (int i = 0; i < S_N_SECTS; i++) {
 		newSection = new Section(Screen::S_WIDTH/2 - i*Section::S_SECTION_WIDTH,
 			3*Section::S_SECTION_WIDTH);
-		m_sections.push_back(newSection);		
+		m_sections.push_back(newSection);
 	}
 }
 
@@ -45,8 +45,10 @@ void Snake::updateDirection(int direction) {
 			(m_direction == Snake::Direction::LEFT || m_direction ==
 			Snake::Direction::RIGHT) && (direction == Snake::Direction::UP ||
 			direction == Snake::Direction::DOWN)
-		)
+		) {
 		m_direction = direction;
+		m_hasUpdated = true;
+	}
 }
 
 bool Snake::move() {
@@ -55,6 +57,8 @@ bool Snake::move() {
 			calculateDirection(* m_sections[i-1]));
 
 	m_sections[0]->move(m_direction);
+
+	m_hasUpdated = false;
 
 	if (m_sections[0]->m_x >= Screen::S_WIDTH || m_sections[0]->m_x < 0 ||
 			m_sections[0]->m_y >= Screen::S_HEIGHT || m_sections[0]->m_y < 0)		

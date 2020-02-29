@@ -26,6 +26,7 @@ struct Snake {
 	int m_speed;
 	int m_lives;
 	int m_direction;
+	bool m_hasUpdated;
 
 	std::vector<Section *> m_sections;
 

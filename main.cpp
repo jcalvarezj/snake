@@ -121,16 +121,20 @@ int main(int argc, char ** argv) {
 				pause = true;
 				break;
 			case Screen::Action::MOVE_UP:
-				snake.updateDirection(Snake::Direction::UP);
+				if(!snake.m_hasUpdated)
+					snake.updateDirection(Snake::Direction::UP);
 				break;
 			case Screen::Action::MOVE_DOWN:
-				snake.updateDirection(Snake::Direction::DOWN);
+				if(!snake.m_hasUpdated)
+					snake.updateDirection(Snake::Direction::DOWN);
 				break;
 			case Screen::Action::MOVE_LEFT:
-				snake.updateDirection(Snake::Direction::LEFT);
+				if(!snake.m_hasUpdated)
+					snake.updateDirection(Snake::Direction::LEFT);
 				break;
 			case Screen::Action::MOVE_RIGHT:
-				snake.updateDirection(Snake::Direction::RIGHT);
+				if(!snake.m_hasUpdated)
+					snake.updateDirection(Snake::Direction::RIGHT);
 				break;
 		}
 
