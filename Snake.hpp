@@ -27,9 +27,11 @@ struct Snake {
 	int m_lives;
 	int m_direction;
 
-	std::vector<Section> m_sections;
+	std::vector<Section *> m_sections;
 
 	Snake();
+	~Snake();
+
 	void draw(Screen & screen);
 	void updateDirection(int direction);
 	bool move();
@@ -40,6 +42,7 @@ struct Snake {
 	void toString();  // TODO Remove . For debugging purposes
 	
 private:
+	void freeSections();
 	void resetSections();
 	void resetDirection();
 };
