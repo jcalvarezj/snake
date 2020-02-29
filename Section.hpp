@@ -14,6 +14,7 @@ namespace SnakeGame {
 struct Section: Collideable {
 	static const unsigned int S_SECTION_WIDTH;
 
+	Section();
 	Section(int x, int y);
 	void draw(Screen & screen);
 	void move(int direction);

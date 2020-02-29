@@ -28,7 +28,6 @@ bool holdGame(Screen & screen, int millis) {
 bool pauseGame(Screen & screen, bool & pause) {
 	int startTime = SDL_GetTicks();
 	bool quit = false;
-	int action = Screen::Action::PAUSE;
 	while (!quit && pause) {
 		int action = screen.processEvents();
 		switch (action) {
@@ -51,26 +50,35 @@ void resetLevel(Snake & snake, Food & food, bool & starting) {
 	starting = true;
 }
 
-void createWalls(std::vector<Wall> & walls) {
+void createWalls(std::vector<Wall *> & walls) {
 	const int N_HORIZONTAL = Screen::S_WIDTH / Wall::S_WALL_WIDTH;
 	const int N_VERTICAL = Screen::S_HEIGHT / Wall::S_WALL_WIDTH - 2;
 
 	for (int i = 0; i < N_HORIZONTAL; i++) {
-		walls.push_back(Wall(i * Wall::S_WALL_WIDTH, 0));
-		walls.push_back(
-			Wall(i * Wall::S_WALL_WIDTH, 
-				Screen::S_HEIGHT - 3 * Wall::S_WALL_WIDTH)
-		);
+		Wall * upperWall = new Wall(i * Wall::S_WALL_WIDTH, 0);
+		Wall * lowerWall = new Wall(i * Wall::S_WALL_WIDTH, 
+			Screen::S_HEIGHT - 3 * Wall::S_WALL_WIDTH);
+		walls.push_back(upperWall);
+		walls.push_back(lowerWall);
 	}
 	for (int i = 1; i < N_VERTICAL - 1; i++) {
-		walls.push_back(Wall(0, i * Wall::S_WALL_WIDTH));
-		walls.push_back(Wall(Screen::S_WIDTH - Wall::S_WALL_WIDTH, i * Wall::S_WALL_WIDTH));
+		Wall * leftmostWall = new Wall(0, i * Wall::S_WALL_WIDTH);
+		Wall * rightmostWall = new Wall(Screen::S_WIDTH - Wall::S_WALL_WIDTH,
+			i * Wall::S_WALL_WIDTH);
+		walls.push_back(leftmostWall);
+		walls.push_back(rightmostWall);
 	}
 }
 
-void drawWalls(std::vector<Wall> & walls, Screen & screen) {
+void drawWalls(std::vector<Wall *> & walls, Screen & screen) {
 	for (auto wall: walls)
-		wall.draw(screen);
+		wall->draw(screen);
+}
+
+void freeWalls(std::vector<Wall *> & walls) {
+	for (auto wall: walls)
+		delete wall;
+	walls.clear();	
 }
 
 int main(int argc, char ** argv) {
@@ -79,7 +87,7 @@ int main(int argc, char ** argv) {
 	Screen screen;
 	Snake snake;
 	Food food;
-	std::vector<Wall> walls;
+	std::vector<Wall *> walls;
 	createWalls(walls);
 
 	int score = 0;
@@ -143,11 +151,11 @@ int main(int argc, char ** argv) {
 				}
 
 				for (auto wall: walls)
-					if (snake.collidesWith(wall))
+					if (snake.collidesWith(* wall))
 						resetLevel(snake, food, starting);
 
 				for (int i = 1; i < snake.m_sections.size(); i++)
-					if (snake.collidesWith(snake.m_sections[i]))
+					if (snake.collidesWith(* snake.m_sections[i]))
 						resetLevel(snake, food, starting);
 			}
 		}
@@ -161,6 +169,7 @@ int main(int argc, char ** argv) {
 		}
 	}
 
+	freeWalls(walls);
 	screen.close();
 
 	return 0;

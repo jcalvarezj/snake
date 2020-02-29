@@ -11,6 +11,8 @@ namespace SnakeGame {
 
 const unsigned int Section::S_SECTION_WIDTH = 20;
 
+Section::Section(): Collideable(0, 0) {}
+
 Section::Section(int x, int y):
 	Collideable(x, y) {}
 
@@ -19,6 +21,7 @@ void Section::draw(Screen & screen) {
 		for (int j = 0; j < S_SECTION_WIDTH; j++)
 			screen.setPixel((int) m_x + i, (int) m_y + j, Snake::S_SNK_RED,
 				Snake::S_SNK_GREEN, Snake::S_SNK_BLUE);
+	SDL_Log("drew a section! %d %d", m_x, m_y);
 }
 
 void Section::move(int direction) {
