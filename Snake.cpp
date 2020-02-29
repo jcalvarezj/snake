@@ -23,8 +23,7 @@ Snake::Snake(): m_speed(Snake::S_INITIAL_SPEED), m_lives(Snake::S_INITIAL_LIVES)
 	for (int i = 0; i < S_N_SECTS; i++) {
 		newSection = new Section(Screen::S_WIDTH/2 - i*Section::S_SECTION_WIDTH,
 			3*Section::S_SECTION_WIDTH);
-		m_sections.push_back(newSection);
-		SDL_Log("Added new section");
+		m_sections.push_back(newSection);		
 	}
 }
 
@@ -32,11 +31,7 @@ Snake::~Snake() {
 	freeSections();
 }
 
-void Snake::draw(Screen & screen) {
-	SDL_Log("The sections to draw are");
-	for (auto section: m_sections)
-		section->toString();
-
+void Snake::draw(Screen & screen) {	
 	for (auto section: m_sections)
 		section->draw(screen);
 }
@@ -127,10 +122,8 @@ void Snake::addSection() {
 			y = m_sections[N-1]->m_y;
 			break;
 	}
-SDL_Log("Befor");
 	Section * newSection = new Section(x,y);
-	m_sections.push_back(newSection);
-	SDL_Log("ASFTYER");
+	m_sections.push_back(newSection);	
 }
 
 void Snake::toString() {  // TODO Remove. For debugging purposes
