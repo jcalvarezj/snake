@@ -18,8 +18,8 @@ const unsigned int Food::S_FOOD_WIDTH = 20;
 const int Food::S_VALUE = 50;
 
 Food::Food(): Collideable(0, 0) {
-	m_x = (int) ((Screen::S_WIDTH / S_FOOD_WIDTH - 1.0) * (1.0 * rand() / RAND_MAX)) * S_FOOD_WIDTH;
-	m_y = (int) ((Screen::S_HEIGHT / S_FOOD_WIDTH - 1.0) * (1.0 * rand() / RAND_MAX)) * S_FOOD_WIDTH;
+	m_x = (int) ((Screen::S_WIDTH / S_FOOD_WIDTH - 2.0) * (1.0 * rand() / RAND_MAX) + 1) * S_FOOD_WIDTH;
+	m_y = (int) ((Screen::S_HEIGHT / S_FOOD_WIDTH - 4.0) * (1.0 * rand() / RAND_MAX) + 1) * S_FOOD_WIDTH;
 }
 
 void Food::draw(Screen & screen) {

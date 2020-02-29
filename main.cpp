@@ -131,7 +131,7 @@ int main(int argc, char ** argv) {
 
 		int elapsed = SDL_GetTicks();
 
-		if (elapsed % 4 == 0) {
+		if (elapsed/10 % 6 == 0) {
 			if (!snake.move())
 				resetLevel(snake, food, starting);
 			else {

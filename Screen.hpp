@@ -1,4 +1,5 @@
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_ttf.h"
 
 #ifndef SCREEN_HPP
 #define SCREEN_HPP

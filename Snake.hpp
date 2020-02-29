@@ -19,11 +19,11 @@ struct Snake {
 	static cint S_N_SECTS;
 	static cint S_INITIAL_LIVES;
 	static cint S_INITIAL_DIRECTION;
-	static const double S_INITIAL_SPEED;
+	static const int S_INITIAL_SPEED;
 
 	enum Direction { UP, DOWN, LEFT, RIGHT };
 
-	double m_speed;
+	int m_speed;
 	int m_lives;
 	int m_direction;
 
