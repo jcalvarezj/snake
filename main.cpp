@@ -106,7 +106,7 @@ int main(int argc, char ** argv) {
 		snake.draw(screen);
 		food.draw(screen);
 		drawWalls(walls, screen);
-		screen.update();
+		screen.update(score, snake.m_lives, false);
 
 		if (starting) {
 			quit = holdGame(screen, 1500);
@@ -150,7 +150,6 @@ int main(int argc, char ** argv) {
 				if (snake.collidesWith(food)) {
 					food = Food();
 					score += Food::S_VALUE;
-					SDL_Log("Score! Now you have %d points", score);
 					snake.addSection();
 				}
 
@@ -167,7 +166,7 @@ int main(int argc, char ** argv) {
 		if (snake.m_lives == 0) {
 			screen.clear();			
 			screen.drawGameOver();
-			screen.update();
+			screen.update(score, snake.m_lives, true);
 
 			holdGame(screen, 3000);
 		}
