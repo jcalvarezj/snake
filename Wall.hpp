@@ -18,8 +18,14 @@ struct Wall: Collideable {
 
 	static const unsigned int S_WALL_WIDTH;
 
+	/**
+	 * @see Collideable#Collideable(int, int)
+	 */
 	Wall(int x, int y);
 
+	/**
+	 * @see Drawable#draw
+	 */
 	void draw(Screen & screen);
 };
 

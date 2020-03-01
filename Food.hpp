@@ -1,3 +1,8 @@
+/*
+ * Snake game program using the SDL library
+ *
+ * @author J. Alvarez
+ */
 #include "Collideable.hpp"
 #include "Screen.hpp"
 #include "SDL2/SDL.h"
@@ -19,8 +24,14 @@ struct Food: Collideable {
 	static const unsigned int S_FOOD_WIDTH;
 	static const int S_VALUE;
 
+	/**
+	 * Default constructor for Food instances
+	 */
 	Food();
 
+	/**
+	 * @see Drawable#draw
+	 */
 	void draw(Screen & screen);
 };
 

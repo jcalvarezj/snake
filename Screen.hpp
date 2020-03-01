@@ -1,3 +1,8 @@
+/*
+ * Snake game program using the SDL library
+ *
+ * @author J. Alvarez
+ */
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 #include <string>

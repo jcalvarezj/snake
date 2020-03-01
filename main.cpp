@@ -1,5 +1,6 @@
 /*
- * 
+ * Snake game program using the SDL library
+ *
  * @author J. Alvarez
  */
 #include <iostream>
