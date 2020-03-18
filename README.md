@@ -29,3 +29,7 @@ From the new directory (C:\\SDL), there is a folder named with your desired arch
 ## Gameplay
 
 Guide the snake to eat food while avoiding collisions with walls or the body of the snake. Arrow keys change the snake's direction and RETURN (ENTER) pauses the game. You have three lives to get the highest possible score.
+
+## Preview
+
+![Short gameplay demo](https://jcalvarezj.github.io/img/Snake.gif)
